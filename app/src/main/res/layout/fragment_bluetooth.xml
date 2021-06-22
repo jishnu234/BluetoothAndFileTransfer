@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".BluetoothFragment">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_anim"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/bluetooth_connecting" />
+
+    <TextView
+        android:id="@+id/status_text"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
+        android:text="Bluetooth status"
+        app:layout_constraintEnd_toStartOf="@+id/status_button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lottie_anim" />
+
+    <com.github.angads25.toggle.widget.LabeledSwitch
+        android:id="@+id/status_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textSize="14sp"
+        app:colorBorder="@color/blue"
+        app:layout_constraintBottom_toBottomOf="@+id/status_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:colorOn = "@color/blue"
+        app:layout_constraintStart_toEndOf="@+id/status_text"
+        app:layout_constraintTop_toTopOf="@+id/status_text"
+        app:on="false" />
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/disc_text"-->
+    <!--        style="@style/TextAppearance.AppCompat.Headline"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="8dp"-->
+    <!--        android:text="Device Discoverable"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/disc_switch"-->
+    <!--        app:layout_constraintHorizontal_bias="0.5"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/status_text" />-->
+
+    <!--    <com.github.angads25.toggle.widget.LabeledSwitch-->
+    <!--        android:id="@+id/disc_switch"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="16dp"-->
+    <!--        android:textSize="14sp"-->
+    <!--        app:colorBorder="@color/blue"-->
+    <!--        app:colorOn = "@color/blue"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/disc_text"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.5"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/disc_text"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/disc_text"-->
+    <!--        app:on="false" />-->
+
+    <TextView
+        android:id="@+id/paired_text"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="Paired Devices"
+        app:layout_constraintEnd_toStartOf="@+id/paired_box"
+        android:textColor="@color/blue"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/status_text" />
+
+    <net.igenius.customcheckbox.CustomCheckBox
+        android:id="@+id/paired_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        app:stroke_width="1dp"
+        app:color_unchecked_stroke="@color/blue"
+        app:color_tick="@color/white"
+        app:color_checked="@color/blue"
+        app:color_unchecked="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/paired_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/paired_text"
+        app:layout_constraintTop_toTopOf="@+id/paired_text" />
+
+
+    <ListView
+        android:id="@+id/paired_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paired_text" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

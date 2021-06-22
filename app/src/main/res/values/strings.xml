@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Blutooth and File transfer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="file_transfer">File transfer</string>
+</resources>
