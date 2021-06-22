@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements
         binding = ActivityMainBinding.inflate(getLayoutInflater(), null, false);
         setContentView(binding.getRoot());
 
-        loadFragment(new BluetoothFragment());
+//        loadFragment(new BluetoothFragment());
         fragmentList = new ArrayList<>();
         fragmentList.add(new BluetoothFragment());
         fragmentList.add(new TransferFragment());
@@ -60,25 +60,26 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-    private void loadFragment(Fragment fragment) {
-
-        if (fragment != null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(binding.containerLayout.getId(), fragment);
-            transaction.commit();
-        }
-    }
+//    private void loadFragment(Fragment fragment) {
+//
+//        if (fragment != null) {
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            transaction.replace(binding.containerLayout.getId(), fragment);
+//            transaction.commit();
+//        }
+//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.bluetooth_menu:
-//                    binding.viewPager.setCurrentItem(0);
-                loadFragment(new BluetoothFragment());
+                    binding.viewPager.setCurrentItem(0);
+//                loadFragment(new BluetoothFragment());
                 break;
             case R.id.transfer_menu:
-                loadFragment(new TransferFragment());
+//                loadFragment(new TransferFragment());
+                binding.viewPager.setCurrentItem(1);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + item.getItemId());
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements
                 binding.navigationView.getMenu().findItem(R.id.bluetooth_menu).setChecked(true);
                 break;
             case 1:
-                binding.navigationView.getMenu().findItem(R.id.transfer_menu).setChecked(false);
+                binding.navigationView.getMenu().findItem(R.id.transfer_menu).setChecked(true);
         }
     }
 
@@ -114,6 +115,8 @@ public class MainActivity extends AppCompatActivity implements
         // permission in the current activity.
 
         final boolean[] status = {false};
+        // this method is use to handle error
+// in runtime permissions
         Dexter.withContext(this)
                 // below line is use to request the number of
                 // permissions which are required in our app.
@@ -144,16 +147,11 @@ public class MainActivity extends AppCompatActivity implements
                         // permission and denies some of them.
                         permissionToken.continuePermissionRequest();
                     }
-                }).withErrorListener(new PermissionRequestErrorListener() {
-            // this method is use to handle error
-            // in runtime permissions
-            @Override
-            public void onError(DexterError error) {
-                // we are displaying a toast message for error message.
-                status[0] = false;
-                Toast.makeText(getApplicationContext(), "Error occurred! ", Toast.LENGTH_SHORT).show();
-            }
-        }).onSameThread().check();
+                }).withErrorListener(error -> {
+                    // we are displaying a toast message for error message.
+                    status[0] = false;
+                    Toast.makeText(getApplicationContext(), "Error occurred! ", Toast.LENGTH_SHORT).show();
+                }).onSameThread().check();
 
         return status[0];
 
@@ -169,29 +167,23 @@ public class MainActivity extends AppCompatActivity implements
 
         // below line is our message for our dialog
         builder.setMessage("This app needs permission to use this feature. You can grant them in app settings.");
-        builder.setPositiveButton("GOTO SETTINGS", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // this method is called on click on positive
-                // button and on clicking shit button we
-                // are redirecting our user from our app to the
-                // settings page of our app.
-                dialog.cancel();
-                // below is the intent from which we
-                // are redirecting our user.
-                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                Uri uri = Uri.fromParts("package", getPackageName(), null);
-                intent.setData(uri);
-                startActivityForResult(intent, 101);
-            }
+        builder.setPositiveButton("GOTO SETTINGS", (dialog, which) -> {
+            // this method is called on click on positive
+            // button and on clicking shit button we
+            // are redirecting our user from our app to the
+            // settings page of our app.
+            dialog.cancel();
+            // below is the intent from which we
+            // are redirecting our user.
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", getPackageName(), null);
+            intent.setData(uri);
+            startActivityForResult(intent, 101);
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // this method is called when
-                // user click on negative button.
-                dialog.cancel();
-            }
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+            // this method is called when
+            // user click on negative button.
+            dialog.cancel();
         });
         // below line is used
         // to display our dialog
